@@ -135,7 +135,7 @@ namespace Microsoft.AspNetCore.SignalR.Client
         /// <code>
         /// connection.Reconnected += (connectionId) =>
         /// {
-        ///     Console.WriteLine($"Connection completed reconnecting with ConnectionId: {connectionId}");
+        ///     Console.WriteLine($"Connection successfully reconnected. The ConnectionId is now: {connectionId}");
         /// };
         /// </code>
         /// </example>
@@ -242,7 +242,7 @@ namespace Microsoft.AspNetCore.SignalR.Client
 
             if (!TryChangeState(HubConnectionState.Disconnected, HubConnectionState.Connecting))
             {
-                throw new InvalidOperationException($"The ${nameof(HubConnection)} cannot be started if it is not in the disconnected state.");
+                throw new InvalidOperationException($"The {nameof(HubConnection)} cannot be started if it is not in the disconnected state.");
             }
 
             using (_logger.BeginScope(_logScope))
@@ -252,7 +252,7 @@ namespace Microsoft.AspNetCore.SignalR.Client
 
             if (!TryChangeState(HubConnectionState.Connecting, HubConnectionState.Connected))
             {
-                throw new IOException($"The ${nameof(HubConnection)} left the connecting state during start.");
+                throw new OperationCanceledException($"The {nameof(HubConnection)} left the connecting state during start.");
             }
         }
 
